@@ -1,0 +1,51 @@
+---
+/********************************************************************* 
+Author: Sukanta Manna  
+Purpose: Landing page displaying application overview, global 
+         telemetry statistics and interactive services 
+         marquee ticker,
+**********************************************************************/
+import Layout from "@/layouts/main.astro"
+import EarthquakeStatsChart from "../components/EarthquakeStatsChart"
+import VolcanoStatsSummary from "../components/VolcanoStatsSummary"
+import StormInsightsCard from "../components/StormInsightsCard"
+import Hero from "../components/Hero"
+import ServicesMarquee from "../components/ServicesMarquee"
+import ContactForm from "../components/ContactForm"
+import { ui } from "../i18n/ui"
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: undefined } }, // Matches "/"
+    { params: { lang: "bn" } }, // Matches "/bn"
+    { params: { lang: "es" } }, // Matches "/es"
+    { params: { lang: "fr" } }, // Matches "/fr"
+    { params: { lang: "hi" } }, // Matches "/hi"
+    { params: { lang: "ja" } }, // Matches "/ja"
+    { params: { lang: "ru" } }, // Matches "/ru"
+    { params: { lang: "zh" } }, // Matches "/zh"
+  ]
+}
+
+const { lang = "en" } = Astro.params
+const currentLang = (lang || "en") as keyof typeof ui
+const localizeUrl = (url: string) =>
+  currentLang === "en" ? url : `/${currentLang}${url}`
+---
+
+<Layout>
+  <div class="flex h-full min-h-screen w-full flex-col overflow-y-auto">
+    {/* HERO SECTION */}
+    <Hero client:load currentLang={currentLang} />
+
+    {/* DATA CHARTS / DASHBOARD SECTION */}
+    <div class="mx-auto my-4 flex w-full max-w-6xl flex-col gap-8 p-4 sm:p-6">      
+      {/* SERVICES TICKER (Right to Left Scrolling) */}
+      <ServicesMarquee client:load currentLang={currentLang} />
+      {/* CONTACT FORM */}
+      <div class="w-full shrink-0 pb-16">
+        <ContactForm client:visible />
+      </div>
+    </div>
+  </div>
+</Layout>

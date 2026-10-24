@@ -1,0 +1,37 @@
+---
+/********************************************************************* 
+Author: Sukanta Manna  
+Purpose: earthquakes.astro.
+**********************************************************************/
+import EarthquakeMap from "../../components/EarthquakeMap"
+import Layout from "../../layouts/main.astro"
+import EarthquakeStatsChart from "../../components/EarthquakeStatsChart"
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: undefined } },
+    { params: { lang: "bn" } },
+    { params: { lang: "es" } },
+    { params: { lang: "fr" } },
+    { params: { lang: "hi" } },
+    { params: { lang: "ja" } },
+    { params: { lang: "ru" } },
+    { params: { lang: "zh" } },
+  ]
+}
+
+const { lang } = Astro.params
+---
+
+<Layout>  
+  <div class="flex h-screen w-full flex-col overflow-y-auto">
+    <div id="earthquakeMap" class="mb-2">
+      <EarthquakeMap client:only />
+    </div>
+    <div class="mx-auto my-4 flex w-full max-w-6xl flex-col gap-8 p-4 sm:p-6">
+      <div id="earthquakeChart" class="w-full shrink-0">
+        <EarthquakeStatsChart client:visible />
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,41 @@
+---
+/********************************************************************* 
+Author: Sukanta Manna  
+Purpose: childmortality.astro.
+**********************************************************************/
+import ChildMortalityMap from "../../components/health/ChildMortalityMap"
+import ChildMortalityPrediction from "@/components/health/ChildMortalityPrediction";
+import Layout from "../../layouts/main.astro"
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: undefined } },
+    { params: { lang: 'bn' } },
+    { params: { lang: 'es' } }, 
+    { params: { lang: 'fr' } },  
+    { params: { lang: 'hi' } },
+    { params: { lang: 'ja' } }, 
+    { params: { lang: 'ru' } },
+    { params: { lang: 'zh' } },
+  ];
+}
+
+const { lang } = Astro.params;
+---
+
+<Layout>
+  <!-- Full height container with vertical scroll enabled -->
+  <div class="flex h-screen w-full flex-col overflow-y-auto bg-slate-50 dark:bg-slate-950">
+    
+    <!-- Top Map Section: Fixed height container so it doesn't mask components below -->
+    <div class="relative h-[65vh] min-h-[500px] w-full shrink-0">
+      <ChildMortalityMap client:only="react" />
+    </div>
+
+    <!-- Bottom Form & Prediction Section -->
+    <div class="w-full shrink-0 mx-auto max-w-6xl p-4 sm:p-6 mb-16">
+      <ChildMortalityPrediction client:only="react" />
+    </div>
+
+  </div>
+</Layout>

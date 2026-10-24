@@ -1,0 +1,25 @@
+---
+/********************************************************************* 
+Author: Sukanta Manna  
+Purpose: wildfires.astro.
+**********************************************************************/
+import WildfireMap from "../../components/WildfireMap"
+import Layout from "../../layouts/main.astro"
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: undefined } }, 
+    { params: { lang: 'bn' } },
+    { params: { lang: 'es' } }, 
+    { params: { lang: 'fr' } }, 
+    { params: { lang: 'hi' } },
+    { params: { lang: 'ja' } }, 
+    { params: { lang: 'ru' } }, 
+    { params: { lang: 'zh' } },  
+  ];
+}
+---
+
+<Layout>
+  <WildfireMap client:only />
+</Layout>

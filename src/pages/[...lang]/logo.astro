@@ -1,0 +1,102 @@
+---
+/********************************************************************* 
+Author: Sukanta Manna  
+Purpose: logo.astro.
+**********************************************************************/
+export function getStaticPaths() {
+  return [
+    { params: { lang: undefined } },
+    { params: { lang: 'bn' } },
+    { params: { lang: 'es' } }, 
+    { params: { lang: 'fr' } },
+    { params: { lang: 'hi' } },
+    { params: { lang: 'ja' } }, 
+    { params: { lang: 'ru' } },
+    { params: { lang: 'zh' } },  
+  ];
+}
+
+const { lang } = Astro.params;
+---
+
+<div>
+  <button id="download-btn">Download High-Res PNG</button>
+</div>
+
+<script>
+  function downloadPNG() {
+    const svgString = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="3000" height="600" viewBox="0 0 1250 300">
+      <defs>
+        <!-- Clip path for the outer boundary of the globe ring (center: 160, 150, radius: 80) -->
+        <clipPath id="logoOuterCircleClip">
+          <circle cx="160" cy="150" r="80" />
+        </clipPath>
+      </defs>
+
+      <style>
+        .brand-main { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 800; font-size: 110px; fill: #0f172a; }
+        .brand-sub { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 600; font-size: 74px; fill: #94a3b8; letter-spacing: 12px; }
+        .strike-red { stroke: #f43f5e; stroke-width: 16; stroke-linecap: round; }
+      </style>
+      
+      <!-- Icon Container Background -->
+      <rect x="40" y="30" width="240" height="240" rx="56" fill="#020617" />
+      
+      <!-- Outer Globe Ring -->
+      <circle cx="160" cy="150" r="72" stroke="#f8fafc" stroke-width="16" fill="none" />
+      
+      <!-- Left Half Horizontal Axis (White - Thickness: 16px) -->
+      <line x1="88" y1="150" x2="160" y2="150" stroke="#f8fafc" stroke-width="16" stroke-linecap="butt" />
+
+      <!-- Right Half Horizontal Axis (Red - Thickness: 24px = 1.5x White, Clipped for curved finish) -->
+      <g clip-path="url(#logoOuterCircleClip)">
+        <line x1="160" y1="150" x2="245" y2="150" stroke="#f43f5e" stroke-width="24" stroke-linecap="butt" />
+      </g>
+
+      <!-- High-Visibility Red Hazard Pulse Alert Marker (Positioned above red axis) -->
+      <circle cx="204" cy="94" r="24" fill="#f43f5e" />
+      <circle cx="204" cy="94" r="10" fill="#ffffff" />
+
+      <!-- Brand Typography: globalnegativeaxis -->
+      <text x="320" y="140" class="brand-main">globalnegativeaxis</text>
+      
+      <!-- Red Strike-Through Overlay Lines for 'bal', 'gative', and 'is' -->
+      <!-- Strike over 'bal' -->
+      <line x1="505" y1="108" x2="650" y2="108" class="strike-red" />
+      <!-- Strike over 'gative' -->
+      <line x1="800" y1="108" x2="1120" y2="108" class="strike-red" />
+      <!-- Strike over 'is' -->
+      <line x1="1265" y1="108" x2="1335" y2="108" class="strike-red" />
+
+      <!-- Subtitle -->
+      <text x="320" y="235" class="brand-sub">HAZARD INTELLIGENCE</text>
+    </svg>`;
+
+    const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const img = new Image();
+
+    img.onload = function () {
+      const canvas = document.createElement('canvas');
+      canvas.width = 3000;
+      canvas.height = 600;
+      const ctx = canvas.getContext('2d');
+
+      if (!ctx) return;
+
+      ctx.drawImage(img, 0, 0);
+      
+      const a = document.createElement('a');
+      a.download = 'gloneax-logo-hd.png';
+      a.href = canvas.toDataURL('image/png');
+      a.click();
+      
+      URL.revokeObjectURL(url);
+    };
+
+    img.src = url;
+  }
+
+  document.getElementById('download-btn')?.addEventListener('click', downloadPNG);
+</script>

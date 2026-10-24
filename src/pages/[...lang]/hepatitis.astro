@@ -1,0 +1,25 @@
+---
+/********************************************************************* 
+Author: Sukanta Manna  
+Purpose: hepatitis.astro.
+**********************************************************************/
+import HepatitisMap from "../../components/health/HepatitisMap"
+import Layout from "../../layouts/main.astro"
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: undefined } }, 
+    { params: { lang: 'bn' } },
+    { params: { lang: 'es' } }, 
+    { params: { lang: 'fr' } }, 
+    { params: { lang: 'hi' } },
+    { params: { lang: 'ja' } },
+    { params: { lang: 'ru' } },  
+    { params: { lang: 'zh' } },  
+  ];
+}
+---
+
+<Layout>
+  <HepatitisMap client:only />
+</Layout>

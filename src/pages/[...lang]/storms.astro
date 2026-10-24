@@ -1,0 +1,37 @@
+---
+/********************************************************************* 
+Author: Sukanta Manna  
+Purpose: storms.astro.
+**********************************************************************/
+import GlobalStormMap from "../../components/GlobalStormMap"
+import Layout from "../../layouts/main.astro"
+import StormInsightsCard from "../../components/StormInsightsCard"
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: undefined } },
+    { params: { lang: 'bn' } },
+    { params: { lang: 'es' } },  
+    { params: { lang: 'fr' } }, 
+    { params: { lang: 'hi' } },
+    { params: { lang: 'ja' } }, 
+    { params: { lang: 'ru' } },
+    { params: { lang: 'zh' } },
+  ];
+}
+
+const { lang } = Astro.params;
+---
+
+<Layout>
+  <div class="flex h-screen w-full flex-col overflow-y-auto">
+  <div id="stormMap" class="">
+    <GlobalStormMap client:only/>
+  </div>
+  <div class="mx-auto my-4 flex w-full max-w-6xl flex-col gap-8 p-4 sm:p-6">
+      <div id="volcanChart" class="w-full shrink-0 mb-6">
+        <StormInsightsCard client:visible />
+      </div>
+    </div>
+  </div>
+</Layout>

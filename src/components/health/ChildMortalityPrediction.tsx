@@ -26,6 +26,11 @@ const AVAILABLE_COUNTRIES = [
     { code: 'BEN', name: 'Benin'},
     { code: 'BFA', name: 'Burkina Faso'},
     { code: 'BGD', name: 'Bangladesh'},
+    { code: 'BGR', name: 'Bulgaria'},
+    { code: 'BHR', name: 'Bahrain'},
+    { code: 'BHS', name: 'Bahamas'},
+    { code: 'BIH', name: 'Bosnia and Herzegovina'},
+    { code: 'BLR', name: 'Belarus'},
 ];
 
 // Available projection/tracking years

@@ -31,6 +31,13 @@ const AVAILABLE_COUNTRIES = [
     { code: 'BHS', name: 'Bahamas'},
     { code: 'BIH', name: 'Bosnia and Herzegovina'},
     { code: 'BLR', name: 'Belarus'},
+    { code: 'BLZ', name: 'Belize'},
+    { code: 'BOL', name: 'Bolivia'},
+    { code: 'BRA', name: 'Brazil'},
+    { code: 'BRB', name: 'Barbados'},
+    { code: 'BRN', name: 'Brunei Darussalam'},
+    { code: 'BTN', name: 'Bhutan'},
+    { code: 'BWA', name: 'Botswana'},
 ];
 
 // Available projection/tracking years
